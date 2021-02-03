@@ -180,7 +180,7 @@ void MainWindow::on_receive_clear_clicked()
 void MainWindow::send_data(QPlainTextEdit *line_edit)
 {
     int str_cout = 0;
-    QString str = ui->send_window_1->toPlainText().toLatin1();
+    QString str = line_edit->toPlainText().toLatin1();
     QStringList list = str.split(" ");
     qDebug() << "数据hex：" << list;
     QString str_hex;
@@ -190,10 +190,24 @@ void MainWindow::send_data(QPlainTextEdit *line_edit)
         str_hex.append(list.at(i));
     }
     QByteArray hex_data = QString2Hex(str_hex);
+    quint8 send_mode = 0;
+    if(line_edit == ui->send_window_1)
+    {
+        send_mode = send_mode1;
+    }
+    else if(line_edit == ui->send_window_2)
+    {
+        send_mode = send_mode2;
+    }
+    else if(line_edit == ui->send_window_3)
+    {
+        send_mode = send_mode3;
+    }
+
     if(serial->isOpen())
     {
         QString display_send_data;
-        if(send_mode1 & str_send_type)
+        if(send_mode & str_send_type)
         {
             qDebug() << "进入字符串发送模式";
             QTextDocument *document=Q_NULLPTR;
@@ -257,7 +271,7 @@ void MainWindow::send_data(QPlainTextEdit *line_edit)
             }
             ui->send_char_count->display(ui->send_char_count->value()+str_cout);//字符串发送计算发送长度
         }
-        if(send_mode1 & hex_send_type)
+        if(send_mode & hex_send_type)
         {
             qDebug() << "进入HEX1发送模式";
             serial->write(hex_data);
@@ -469,13 +483,12 @@ void MainWindow::ReadData()
     }
 }
 
-
-
 void MainWindow::on_clear_char_count_clicked()
 {
     ui->send_char_count->display("0");
     ui->send_frame_count->display("0");
 }
+
 //发送1自动发送延时设置
 void MainWindow::on_auto_send_1_delay_ms_textChanged(const QString &arg1)
 {
