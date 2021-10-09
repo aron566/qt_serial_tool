@@ -391,11 +391,11 @@ void MainWindow::ReadData()
         QString GBK_str = QString::fromLocal8Bit( str_data );//GBK字符串
         ui->receive_char_count->display(ui->receive_char_count->value()+data.size());//接收字节计数
         ui->receive_char_count_2->display(ui->receive_char_count_2->value()+1);//接收帧计数
-        if(!(int(ui->receive_char_count_2->value()) % 24) )
-        {
-            ui->str_rec->clear();
-            ui->hex_rec->clear();
-        }
+//        if(!(int(ui->receive_char_count_2->value()) % 24) )
+//        {
+//            ui->str_rec->clear();
+//            ui->hex_rec->clear();
+//        }
         if(ui->set_encode->checkState())
         {
             str_data = GBK_str.toUtf8().data();//将接收的GBK编码转为屏幕显示所需utf8
