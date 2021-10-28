@@ -88,12 +88,16 @@ void MainWindow::on_serial_num_activated(const QString &arg1)
     serial->setPortName(arg1);
     qDebug() << ui->serial_num->currentText();
 }
+
 //波特率设置
 void MainWindow::on_communication_baudrate_set_activated(const QString &arg1)
 {
-    serial->setBaudRate(arg1.toInt());
-
+    if(serial->setBaudRate(arg1.toInt()) == false)
+    {
+        qDebug() << "设置波特率失败";
+    }
 }
+
 //数据位设置
 void MainWindow::on_data_bit_set_activated(const QString &arg1)
 {
