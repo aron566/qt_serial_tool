@@ -75,6 +75,11 @@ background-color: rgb(230, 230, 230);</string>
          </item>
          <item>
           <property name="text">
+           <string>3000000</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>1500000</string>
           </property>
          </item>
